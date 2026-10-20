@@ -137,6 +137,38 @@ def derivar_documento():
     else:
         print("No se realizó ningún cambio.")
 
+def actualizar_seguimiento():
+    print("\n=== ACTUALIZAR SEGUIMIENTO ===")
+    codigo = input("Ingrese el código del documento: ").strip()
+    posicion = buscar_documento(codigo)
+    if posicion == -1:
+        print("Documento no encontrado.")
+        return
+
+    print("Documento actual:")
+    mostrar_documento(posicion)
+    print("\nEstados disponibles:")
+    print("  1. Registrado")
+    print("  2. En proceso")
+    print("  3. Derivado")
+    print("  4. Atendido")
+    print("  5. Archivado")
+    opcion = input("Seleccione el nuevo estado (1-5): ").strip()
+
+    estados = {
+        "1": "Registrado",
+        "2": "En proceso",
+        "3": "Derivado",
+        "4": "Atendido",
+        "5": "Archivado"
+    }
+
+    if opcion in estados:
+        documentos[posicion][ESTADO] = estados[opcion]
+        print(f"Estado actualizado a: {estados[opcion]}")
+    else:
+        print("Opción inválida. No se realizó ningún cambio.")
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
