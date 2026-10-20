@@ -186,6 +186,42 @@ def ordenar_documentos():
     print("Documentos ordenados correctamente por código.")
     listar_documentos()
 
+ARCHIVO = "expedientes.txt"
+
+def guardar_en_archivo():
+    """Guarda todos los documentos en un archivo de texto."""
+    try:
+        with open(ARCHIVO, "w", encoding="utf-8") as f:
+            f.write(str(total) + "\n")
+            for i in range(total):
+                linea = "|".join(documentos[i])
+                f.write(linea + "\n")
+        print(f"Datos guardados correctamente en '{ARCHIVO}'.")
+    except Exception as e:
+        print(f"Error al guardar: {e}")
+
+def cargar_desde_archivo():
+    """Carga los documentos desde el archivo de texto."""
+    global total
+    try:
+        with open(ARCHIVO, "r", encoding="utf-8") as f:
+            lineas = f.readlines()
+            if not lineas:
+                return
+            total = int(lineas[0].strip())
+            for i in range(total):
+                if i + 1 < len(lineas):
+                    partes = lineas[i + 1].strip().split("|")
+                    if len(partes) == COLUMNAS:
+                        for j in range(COLUMNAS):
+                            documentos[i][j] = partes[j]
+        print(f"Se cargaron {total} documentos desde '{ARCHIVO}'.")
+    except FileNotFoundError:
+        print("No existe archivo previo. Se inicia con matriz vacía.")
+    except Exception as e:
+        print(f"Error al cargar: {e}")
+        total = 0
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
