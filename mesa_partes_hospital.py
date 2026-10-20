@@ -5,6 +5,9 @@ Solución: Arreglo Bidimensional (Matriz 100x7)
 Lenguaje: Python
 """
 
+# ============================================================
+# CONSTANTES Y ESTRUCTURA DE DATOS
+# ============================================================
 MAX_DOCUMENTOS = 100
 COLUMNAS = 7
 
@@ -19,15 +22,25 @@ ASUNTO = 6
 
 # Matriz global (arreglo bidimensional)
 documentos = [["" for _ in range(COLUMNAS)] for _ in range(MAX_DOCUMENTOS)]
-total = 0
+total = 0  # Cantidad de documentos registrados
 
 
+# ============================================================
+# FUNCIÓN: BuscarDocumento
+# Localiza un expediente por su código y devuelve su posición.
+# Retorna -1 si no existe.
+# ============================================================
 def buscar_documento(codigo):
     for i in range(total):
         if documentos[i][CODIGO] == codigo:
             return i
     return -1
 
+
+# ============================================================
+# FUNCIÓN: MostrarDocumento
+# Presenta los datos de un expediente en una posición dada.
+# ============================================================
 def mostrar_documento(posicion):
     if posicion < 0 or posicion >= total:
         print("Documento no encontrado.")
@@ -42,6 +55,11 @@ def mostrar_documento(posicion):
     print(f"  Asunto       : {documentos[posicion][ASUNTO]}")
     print("-" * 50)
 
+
+# ============================================================
+# FUNCIÓN: RegistrarDocumento
+# Solicita los datos, valida el código y almacena el nuevo expediente.
+# ============================================================
 def registrar_documento():
     global total
     if total >= MAX_DOCUMENTOS:
@@ -78,6 +96,11 @@ def registrar_documento():
     total += 1
     print(f"\nDocumento registrado correctamente. Total: {total}")
 
+
+# ============================================================
+# FUNCIÓN: ConsultarDocumento
+# Permite buscar y visualizar un documento por código.
+# ============================================================
 def consultar_documento():
     print("\n=== CONSULTAR DOCUMENTO ===")
     codigo = input("Ingrese el código del documento a buscar: ").strip()
@@ -88,6 +111,11 @@ def consultar_documento():
         print("\nDocumento encontrado:")
         mostrar_documento(posicion)
 
+
+# ============================================================
+# FUNCIÓN: ListarDocumentos
+# Muestra todos los expedientes registrados.
+# ============================================================
 def listar_documentos():
     print("\n=== LISTADO DE DOCUMENTOS ===")
     if total == 0:
@@ -102,6 +130,11 @@ def listar_documentos():
     print("-" * 70)
     print(f"Total de documentos: {total}")
 
+
+# ============================================================
+# FUNCIÓN: ClasificarDocumento
+# Actualiza el tipo o categoría del documento.
+# ============================================================
 def clasificar_documento():
     print("\n=== CLASIFICAR DOCUMENTO ===")
     codigo = input("Ingrese el código del documento: ").strip()
@@ -119,6 +152,11 @@ def clasificar_documento():
     else:
         print("No se realizó ningún cambio.")
 
+
+# ============================================================
+# FUNCIÓN: DerivarDocumento
+# Asigna el área de destino y actualiza el estado.
+# ============================================================
 def derivar_documento():
     print("\n=== DERIVAR DOCUMENTO ===")
     codigo = input("Ingrese el código del documento: ").strip()
@@ -137,6 +175,11 @@ def derivar_documento():
     else:
         print("No se realizó ningún cambio.")
 
+
+# ============================================================
+# FUNCIÓN: ActualizarSeguimiento
+# Modifica el estado del expediente.
+# ============================================================
 def actualizar_seguimiento():
     print("\n=== ACTUALIZAR SEGUIMIENTO ===")
     codigo = input("Ingrese el código del documento: ").strip()
@@ -169,6 +212,12 @@ def actualizar_seguimiento():
     else:
         print("Opción inválida. No se realizó ningún cambio.")
 
+
+# ============================================================
+# FUNCIÓN: OrdenarDocumentos
+# Ordena los expedientes por código (ordenamiento burbuja)
+# manteniendo juntos todos los datos de cada fila.
+# ============================================================
 def ordenar_documentos():
     global total
     if total <= 1:
@@ -186,7 +235,12 @@ def ordenar_documentos():
     print("Documentos ordenados correctamente por código.")
     listar_documentos()
 
+
+# ============================================================
+# PERSISTENCIA DE DATOS (Archivos)
+# ============================================================
 ARCHIVO = "expedientes.txt"
+
 
 def guardar_en_archivo():
     """Guarda todos los documentos en un archivo de texto."""
@@ -199,6 +253,7 @@ def guardar_en_archivo():
         print(f"Datos guardados correctamente en '{ARCHIVO}'.")
     except Exception as e:
         print(f"Error al guardar: {e}")
+
 
 def cargar_desde_archivo():
     """Carga los documentos desde el archivo de texto."""
@@ -222,10 +277,57 @@ def cargar_desde_archivo():
         print(f"Error al cargar: {e}")
         total = 0
 
+
+# ============================================================
+# MENÚ PRINCIPAL - MesaDePartesHospital
+# ============================================================
 def menu_principal():
-    print("Mesa de Partes Digital - versión inicial")
-    print("Las funciones se irán incorporando en las siguientes versiones.")
+    cargar_desde_archivo()  # Cargar datos al iniciar
+
+    while True:
+        print("\n" + "=" * 55)
+        print("   MESA DE PARTES - HOSPITAL GENERAL SANTA AURORA")
+        print("=" * 55)
+        print("  1. Registrar documento")
+        print("  2. Consultar documento")
+        print("  3. Listar documentos")
+        print("  4. Clasificar documento")
+        print("  5. Derivar documento")
+        print("  6. Actualizar seguimiento")
+        print("  7. Ordenar documentos por código")
+        print("  8. Guardar datos en archivo")
+        print("  9. Salir")
+        print("=" * 55)
+
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == "1":
+            registrar_documento()
+        elif opcion == "2":
+            consultar_documento()
+        elif opcion == "3":
+            listar_documentos()
+        elif opcion == "4":
+            clasificar_documento()
+        elif opcion == "5":
+            derivar_documento()
+        elif opcion == "6":
+            actualizar_seguimiento()
+        elif opcion == "7":
+            ordenar_documentos()
+        elif opcion == "8":
+            guardar_en_archivo()
+        elif opcion == "9":
+            # Guardar automáticamente al salir
+            guardar_en_archivo()
+            print("\n¡Gracias por usar el sistema! Hasta pronto.")
+            break
+        else:
+            print("Opción inválida. Intente nuevamente.")
 
 
+# ============================================================
+# PUNTO DE ENTRADA
+# ============================================================
 if __name__ == "__main__":
     menu_principal()
