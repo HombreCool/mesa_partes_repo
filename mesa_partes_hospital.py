@@ -119,6 +119,24 @@ def clasificar_documento():
     else:
         print("No se realizó ningún cambio.")
 
+def derivar_documento():
+    print("\n=== DERIVAR DOCUMENTO ===")
+    codigo = input("Ingrese el código del documento: ").strip()
+    posicion = buscar_documento(codigo)
+    if posicion == -1:
+        print("Documento no encontrado.")
+        return
+
+    print("Documento actual:")
+    mostrar_documento(posicion)
+    nueva_area = input("Ingrese el área de destino: ").strip()
+    if nueva_area:
+        documentos[posicion][AREA] = nueva_area
+        documentos[posicion][ESTADO] = "Derivado"
+        print("Documento derivado correctamente.")
+    else:
+        print("No se realizó ningún cambio.")
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
