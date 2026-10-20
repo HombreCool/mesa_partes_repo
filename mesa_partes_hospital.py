@@ -78,6 +78,30 @@ def registrar_documento():
     total += 1
     print(f"\nDocumento registrado correctamente. Total: {total}")
 
+def consultar_documento():
+    print("\n=== CONSULTAR DOCUMENTO ===")
+    codigo = input("Ingrese el código del documento a buscar: ").strip()
+    posicion = buscar_documento(codigo)
+    if posicion == -1:
+        print("No se encontró ningún documento con ese código.")
+    else:
+        print("\nDocumento encontrado:")
+        mostrar_documento(posicion)
+
+def listar_documentos():
+    print("\n=== LISTADO DE DOCUMENTOS ===")
+    if total == 0:
+        print("No existen documentos registrados.")
+        return
+
+    print(f"{'N°':<4} {'Código':<12} {'Solicitante':<25} {'Tipo':<15} {'Estado':<12}")
+    print("-" * 70)
+    for i in range(total):
+        print(f"{i+1:<4} {documentos[i][CODIGO]:<12} {documentos[i][NOMBRE]:<25} "
+              f"{documentos[i][TIPO]:<15} {documentos[i][ESTADO]:<12}")
+    print("-" * 70)
+    print(f"Total de documentos: {total}")
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
