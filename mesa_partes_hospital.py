@@ -102,6 +102,23 @@ def listar_documentos():
     print("-" * 70)
     print(f"Total de documentos: {total}")
 
+def clasificar_documento():
+    print("\n=== CLASIFICAR DOCUMENTO ===")
+    codigo = input("Ingrese el código del documento: ").strip()
+    posicion = buscar_documento(codigo)
+    if posicion == -1:
+        print("Documento no encontrado.")
+        return
+
+    print("Documento actual:")
+    mostrar_documento(posicion)
+    nuevo_tipo = input("Ingrese el nuevo tipo/categoría: ").strip()
+    if nuevo_tipo:
+        documentos[posicion][TIPO] = nuevo_tipo
+        print("Documento clasificado correctamente.")
+    else:
+        print("No se realizó ningún cambio.")
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
