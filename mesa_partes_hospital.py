@@ -169,6 +169,23 @@ def actualizar_seguimiento():
     else:
         print("Opción inválida. No se realizó ningún cambio.")
 
+def ordenar_documentos():
+    global total
+    if total <= 1:
+        print("No hay suficientes documentos para ordenar.")
+        return
+
+    print("\nOrdenando documentos por código...")
+    # Ordenamiento burbuja (ascendente por código)
+    for i in range(total - 1):
+        for j in range(total - 1 - i):
+            if documentos[j][CODIGO] > documentos[j + 1][CODIGO]:
+                # Intercambiar filas completas
+                documentos[j], documentos[j + 1] = documentos[j + 1], documentos[j]
+
+    print("Documentos ordenados correctamente por código.")
+    listar_documentos()
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
