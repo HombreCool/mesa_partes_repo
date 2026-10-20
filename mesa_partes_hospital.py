@@ -42,6 +42,42 @@ def mostrar_documento(posicion):
     print(f"  Asunto       : {documentos[posicion][ASUNTO]}")
     print("-" * 50)
 
+def registrar_documento():
+    global total
+    if total >= MAX_DOCUMENTOS:
+        print("No hay espacio disponible para más documentos.")
+        return
+
+    print("\n=== REGISTRAR NUEVO DOCUMENTO ===")
+    codigo = input("Ingrese el código del documento: ").strip()
+
+    if codigo == "":
+        print("El código no puede estar vacío.")
+        return
+
+    # Verificar que el código no exista
+    if buscar_documento(codigo) != -1:
+        print("Error: Ya existe un documento con ese código.")
+        return
+
+    nombre = input("Ingrese el nombre del solicitante: ").strip()
+    tipo = input("Ingrese el tipo de documento: ").strip()
+    fecha = input("Ingrese la fecha de recepción (dd/mm/aaaa): ").strip()
+    area = input("Ingrese el área de destino: ").strip()
+    asunto = input("Ingrese el asunto del documento: ").strip()
+
+    # Almacenar en la matriz
+    documentos[total][CODIGO] = codigo
+    documentos[total][NOMBRE] = nombre
+    documentos[total][TIPO] = tipo
+    documentos[total][FECHA] = fecha
+    documentos[total][AREA] = area
+    documentos[total][ESTADO] = "Registrado"
+    documentos[total][ASUNTO] = asunto
+
+    total += 1
+    print(f"\nDocumento registrado correctamente. Total: {total}")
+
 def menu_principal():
     print("Mesa de Partes Digital - versión inicial")
     print("Las funciones se irán incorporando en las siguientes versiones.")
